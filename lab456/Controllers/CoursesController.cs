@@ -36,6 +36,7 @@ namespace lab456.Controllers
                 viewModel.Categories = _dbContext.Categories.ToList();
                 return View("Create", viewModel);
 
+
             }
             var course = new Course
             {
