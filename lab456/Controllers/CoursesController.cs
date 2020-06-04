@@ -37,6 +37,7 @@ namespace lab456.Controllers
                 return View("Create", viewModel);
 
 
+
             }
             var course = new Course
             {
