@@ -10,7 +10,7 @@ namespace lab456.ViewModels
     {
         public override bool IsValid(object value)
         {
-            DateTime dateTime]re
+            DateTime dateTime]===-
             return base.IsValid(value);
         }
     }
