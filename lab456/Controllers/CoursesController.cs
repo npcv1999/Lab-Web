@@ -29,6 +29,7 @@ namespace lab456.Controllers
         // GET: Courses
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CourseViewModel viewModel)
              {
             if (!ModelState.IsValid)
