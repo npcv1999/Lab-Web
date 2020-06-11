@@ -26,7 +26,4 @@ namespace lab456.ViewModels
         }
     }
 
-    internal class ValidTimeAttribute : Attribute
-    {
-    }
 }
