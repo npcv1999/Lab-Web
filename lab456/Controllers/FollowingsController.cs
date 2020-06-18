@@ -3,6 +3,7 @@ using lab456.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -33,6 +34,11 @@ namespace lab456.Controllers
             };
             _dbContext.Followings.Add(following);
             _dbContext.SaveChanges();
+
+            following = _dbContext.Followings
+                .Where(x => x.FolloweeId == followingDto.FolloweeId && x.FollowerId == userId)
+                .Include(x => x.Followee)
+                .Include(x => x.Follower).SingleOrDefault();
             return Ok();
         }
     }
