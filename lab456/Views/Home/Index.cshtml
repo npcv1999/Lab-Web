@@ -29,11 +29,11 @@
                             {
                                 if (Model.Followings.Any(x => x.FolloweeId == course.Lecturer.Id))
                                 {
-                                    <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Following</button>
+                                    <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Following?</button>
                                 }
                                 else
                                 {
-                                    <button data-user-id="@course.LecturerId" class="btn  btn-sm btn-info">Following?</button>  
+                                    <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Follow?</button>  
                                 }
                             }
 
@@ -79,10 +79,7 @@
                 var button = $(e.target);
                 $.post("/api/followings", { followeeId: button.attr("data-user-id") })
                     .done(function () {
-                        button
-                            .removeClass("btn-deafault")
-                            .addClass("btn-info")
-                            .text("Following");
+                        button.text("Following");
                     })
                     .fail(function () {
                         alert("Something failed");

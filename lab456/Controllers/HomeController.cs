@@ -27,7 +27,7 @@ namespace lab456.Controllers
             {
                 UpcommingCourses = upcommingCourses,
                 ShowAction = User.Identity.IsAuthenticated,
-                Followings = _dbContext.Followings.Include(f => f.Followee).ToList(),
+                Followings = _dbContext.Followings.Where(f => userId != null && f.FolloweeId == userId).ToList(),
                 Attendances = _dbContext.Attendances.Include(a => a.Course).ToList(),
             };
 
