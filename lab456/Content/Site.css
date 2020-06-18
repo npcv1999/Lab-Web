@@ -24,9 +24,27 @@ textarea {
     max-width: 280px;
 }
 .navbar-inverse {
-    background-color: #e2b364;
-    border-color: #333333;
+    background-color: #0b2782ed;
+    border-color: white;
 }
+
+.navbar-inverse .navbar-nav > li > a {
+        color: white;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover {
+            color: gold;
+        }
+
+.navbar-inverse .navbar-brand {
+        color: white;
+    }
+
+        .navbar-inverse .navbar-brand:hover {
+            color: gold;
+        }
+
+/*Course*/
 .course{
     list-style:none;
 }.course >li{
@@ -34,6 +52,8 @@ textarea {
      margin-bottom:30px;
  }
  .course > li .date{
+     height:70px;
+     padding:0.5%;
      text-align:center;
      background-color: #d41d50;
      color: white;
@@ -42,7 +62,7 @@ textarea {
  }
  .course > li .details{
      position:absolute;
-     top:10px;
+     top:0px;
      left:70px;
      color:black;
 }

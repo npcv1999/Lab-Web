@@ -1,26 +1,58 @@
-﻿@model IEnumerable<lab456.Models.Course>
+﻿@model lab456.ViewModels.CoursesViewModel
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Home Page";
 }
 <ul class="course">
-    @foreach(var course in Model)
+    @foreach (var course in Model.UpcommingCourses)
     {
         <li>
             <div class="date">
-                <div class="month">
-                    @course.DateTime.ToString("MM")
-                </div>
+
                 <div class=" day">
                     @course.DateTime.ToString("dd")
                 </div>
+
+                <div class="month">
+                    @course.DateTime.ToString("MM")
+                </div>
+
+                <div class=" day">
+                    @course.DateTime.ToString("yy")
+                </div>
+
                 <div class="details">
-                    <span class="lecturer">
-                        @course.Lecturer.Name
-                    </span>
+                    <p>
+                        <span class="lecturer">
+                            @course.Lecturer.Name
+                            @if (Model.ShowAction)
+                            {
+                                if (Model.Followings.Any(x => x.FolloweeId == course.Lecturer.Id))
+                                {
+                                    <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Following</button>
+                                }
+                                else
+                                {
+                                    <button data-user-id="@course.LecturerId" class="btn  btn-sm btn-info">Following?</button>  
+                                }
+                            }
+
+                        </span>
+                    </p>
                     <span class="category">
                         @course.Category.Name
                     </span>
-                    <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button> 
+                    @if (Model.ShowAction)
+                    {
+                        if (Model.Attendances.Any(x => x.CourseId == course.Id))
+                        {
+                            <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button>
+                        }
+                        else
+                        {
+                            <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+                        }
+                    }
                 </div>
             </div>
         </li>
@@ -34,14 +66,27 @@
                 var button = $(e.target);
                 $.post("/api/attendances", { courseId: button.attr("data-course-id") })
                     .done(function () {
-                    button
-                    .removeClass("btn-deafault")
-                    .addClass("btn-info")
-                    .text("Going");
-                })
-                .fail(function () {
-                    alert("Somthing failed!");
-                });
+                        button
+                            .removeClass("btn-deafault")
+                            .addClass("btn-info")
+                            .text("Going");
+                    })
+                    .fail(function () {
+                        alert("Somthing failed!");
+                    });
+            });
+            $(".js-toggle-follow").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                    .done(function () {
+                        button
+                            .removeClass("btn-deafault")
+                            .addClass("btn-info")
+                            .text("Following");
+                    })
+                    .fail(function () {
+                        alert("Something failed");
+                    });
             });
         });
     </script>
